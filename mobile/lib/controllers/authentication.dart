@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:forumapp/views/home.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -39,7 +40,9 @@ class AuthenticationController extends GetxController {
       if (response.statusCode == 201) {
         isLoading.value = false;
 
-        print(json.decode(response.body));
+        token.value = json.decode(response.body)['token'];
+        box.write('token', token.value);
+        Get.offAll(() => const HomePage());
       } else {
         isLoading.value = false;
         Get.snackbar(
@@ -80,8 +83,9 @@ class AuthenticationController extends GetxController {
 
       if (response.statusCode == 200) {
         isLoading.value = false;
-
-        print(json.decode(response.body));
+        token.value = json.decode(response.body)['token'];
+        box.write('token', token.value);
+        Get.offAll(() => const HomePage());
       } else {
         isLoading.value = false;
         Get.snackbar(
