@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forumapp/controllers/authentication.dart';
 import 'package:forumapp/views/login_page.dart';
 import 'package:forumapp/views/widgets/input_widget.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthenticationController _authenticationController =
+      Get.put(AuthenticationController());
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +73,10 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(
               height: 30,
             ),
+            // Obx(() {
+            //   return _authenticationController.isLoading.value
+            //       ? const CircularProgressIndicator()
+            //       :
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -79,9 +86,18 @@ class _RegisterPageState extends State<RegisterPage> {
                   vertical: 15,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                await _authenticationController.register(
+                  name: _nameController.text.trim(),
+                  username: _usernameController.text.trim(),
+                  email: _emailController.text.trim(),
+                  password: _passwordController.text.trim(),
+                );
+              },
               child: const Text('Register'),
             ),
+            // ;
+            // }),
             const SizedBox(
               height: 30,
             ),
@@ -95,9 +111,17 @@ class _RegisterPageState extends State<RegisterPage> {
                 //   ),
                 // );
               },
-              child: const Text(
-                'Login',
-              ),
+              child: Obx(() {
+                return _authenticationController.isLoading.value
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        'Login',
+                      );
+              }),
             )
           ],
         ),
