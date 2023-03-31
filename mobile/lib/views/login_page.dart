@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:forumapp/views/register_page.dart';
 import 'package:forumapp/views/widgets/input_widget.dart';
 // import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -66,7 +68,15 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const RegisterPage());
+                // Navigator.pop(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const RegisterPage(),
+                //   ),
+                // );
+              },
               child: const Text(
                 'Register',
               ),

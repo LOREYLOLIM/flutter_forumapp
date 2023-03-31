@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:forumapp/views/login_page.dart';
 import 'package:forumapp/views/widgets/input_widget.dart';
+import 'package:get/get.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -10,6 +12,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -28,8 +32,24 @@ class _RegisterPageState extends State<RegisterPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              'Login Page',
+              'Register Page',
               // style: GoogleFonts.poppins(fontSize: 30),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            InputWidget(
+              hintText: 'Name',
+              controller: _nameController,
+              obscureText: false,
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            InputWidget(
+              hintText: 'Username',
+              controller: _usernameController,
+              obscureText: false,
             ),
             const SizedBox(
               height: 30,
@@ -60,7 +80,24 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               onPressed: () {},
-              child: const Text('Login'),
+              child: const Text('Register'),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            TextButton(
+              onPressed: () {
+                Get.to(() => const LoginPage());
+                // Navigator.pop(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const RegisterPage(),
+                //   ),
+                // );
+              },
+              child: const Text(
+                'Login',
+              ),
             )
           ],
         ),
